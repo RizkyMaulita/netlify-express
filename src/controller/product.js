@@ -9,7 +9,7 @@ class ProductController {
   }
 
   static findAllProducts (req, res) {
-    fs.readFile('./src/data/product.json', 'utf8', (err, data) => {
+    fs.readFile('./product.json', 'utf8', (err, data) => {
       if (err) {
         res.status(400).json({ message: 'An error occured while read file data' })
       } else {
@@ -19,7 +19,7 @@ class ProductController {
   }
  
   static insertOneProduct (req, res) {
-    fs.readFile('./src/data/product.json', 'utf8', (err, data) => {
+    fs.readFile('./product.json', 'utf8', (err, data) => {
       if (err) {
         res.status(400).json({ message: 'An error occured while read file data' })
       } else {
