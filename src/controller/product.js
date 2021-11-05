@@ -11,7 +11,10 @@ class ProductController {
   static findAllProducts (req, res) {
     fs.readFile('./product.json', 'utf8', (err, data) => {
       if (err) {
-        res.status(400).json({ message: 'An error occured while read file data' })
+        fs.writeFile('./product.json', JSON.stringify([], null, 2), (err) => {
+          if (err) res.status(400).json({ message: 'An error occured while create new file data' })
+          else res.status(200).json({ data: [] })
+        })
       } else {
         res.status(200).json({ data: JSON.parse(data) })
       }
@@ -29,7 +32,7 @@ class ProductController {
         const { name, quantity, imageUrl } = req.body
         const newProducts = new ProductController(newId, name, quantity, imageUrl)
         products.push(newProducts)
-        fs.writeFile('./src/data/product.json', JSON.stringify(products, null, 2), (err) => {
+        fs.writeFile('./product.json', JSON.stringify(products, null, 2), (err) => {
           if (err) res.status(400).json({ message: 'An error occured while save file data' })
           else res.status(201).json({ message: 'Successfully created new product !', data: { id: newId }})
         })
